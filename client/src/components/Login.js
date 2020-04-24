@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios'
+import { axiosWithAuth } from './axiosWithAuth'
 
 class Login extends React.Component{
  state = {
@@ -8,8 +9,6 @@ class Login extends React.Component{
       password: ''
     }
   };
-
-
 
  handleChange = e => {
     this.setState({
@@ -23,14 +22,16 @@ class Login extends React.Component{
 login = e => {
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route'
+
   console.log(this.state.credentials)
   e.preventDefault()
-  axios
-    .post('http://localhost:3000/api/login', this.state.credentials)
-    .then(res => console.log(res))
+  axiosWithAuth()
+    .post('/api/login', this.state.credentials)
+    .then(res =>{
+      localStorage.setItem('token', JSON.stringify(res.data.payload))
+      console.log(res)
+    })
      .catch(err => console.log({err}))
-
-
 }
 
   render(){
