@@ -39,13 +39,12 @@ const ColorList = ({ colors, updateColors }) => {
     // make a delete request to delete this color
     console.log(color, "deleteColor is firing ")
       axios
-        .delete(`/api/colors${color.id}`)
+        .delete(`/api/colors/${color.id}`)
         .then(res => {
           setEditing(res.data)
           push('/protected')
         })
         .catch(err => console.log(err))
-
   };
 
   return (
