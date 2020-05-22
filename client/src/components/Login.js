@@ -19,15 +19,11 @@ class Login extends React.Component{
   };
 
 login = e => {
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route'
-  console.log(this.state.credentials)
   e.preventDefault()
   axiosWithAuth()
     .post('/api/login', this.state.credentials)
     .then(res =>{
       localStorage.setItem('token', JSON.stringify(res.data.payload))
-      console.log(res)
       this.props.history.push('/protected')
     })
      .catch(err => console.log({err}))
